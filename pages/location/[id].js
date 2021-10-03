@@ -1,14 +1,14 @@
-import { Card, BackButton } from "../../components";
-import { useQuery, QueryClient, dehydrate } from "react-query";
-import { useRouter } from "next/router";
+import { useQuery } from 'react-query';
+import { useRouter } from 'next/router';
+import { Card, BackButton } from '../../components';
 
-import { getLocation, getLocationsIds } from "../../queries";
+import { getLocation, getLocationsIds } from '../../queries';
 
 const Location = (props) => {
   const router = useRouter();
 
   const { data, isLoading, error } = useQuery(
-    ["location", router.query.id],
+    ['location', router.query.id],
     () => getLocation(router.query.id),
     { initialData: props.location }
   );
@@ -27,7 +27,7 @@ const Location = (props) => {
       <BackButton onClick={goBack} />
       <Card>
         <h1 className="text-3xl font-semibold">
-          {id}. {name}
+          {id}.{name}
         </h1>
         <p>
           <b>Type:</b> {type}

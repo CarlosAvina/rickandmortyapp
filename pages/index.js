@@ -1,18 +1,16 @@
-import React from "react";
-import Head from "next/head";
-import { dehydrate, QueryClient, useQuery } from "react-query";
+import React from 'react';
+import Head from 'next/head';
+import { dehydrate, QueryClient, useQuery } from 'react-query';
 
-import { getCharacters } from "../queries";
+import { getCharacters } from '../queries';
 
-import { Character, PaginationButton, Loader } from "../components";
-import Arrow from "../components/icons/ChevronLeft";
+import { Character, PaginationButton, Loader } from '../components';
+import Arrow from '../components/icons/ChevronLeft';
 
 export default function Home() {
   const [page, setPage] = React.useState(1);
 
-  const { data, isLoading, error } = useQuery(["characters", page], () =>
-    getCharacters(page)
-  );
+  const { data, isLoading, error } = useQuery(['characters', page], () => getCharacters(page));
   const characters = data?.characters?.results;
   const info = data?.characters?.info;
 
@@ -63,12 +61,7 @@ export default function Home() {
             <Arrow />
           </PaginationButton>
           {pagesToDisplay.map((item) => (
-            <PaginationButton
-              key={item}
-              id={item}
-              selected={item === page}
-              onClick={goToPage}
-            >
+            <PaginationButton key={item} id={item} selected={item === page} onClick={goToPage}>
               {item}
             </PaginationButton>
           ))}
@@ -84,7 +77,7 @@ export default function Home() {
 export async function getStaticProps() {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery("characters", getCharacters);
+  await queryClient.prefetchQuery('characters', getCharacters);
 
   return {
     props: {

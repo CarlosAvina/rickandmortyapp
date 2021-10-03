@@ -1,18 +1,17 @@
-import { useRouter } from "next/router";
-import { useQuery } from "react-query";
-import getEpisodes from "../../queries/getEpisodes";
+import { useRouter } from 'next/router';
+import { useQuery } from 'react-query';
+import getEpisodes from '../../queries/getEpisodes';
 
-import { Card, BackButton, Loader } from "../../components";
+import { Card, BackButton, Loader } from '../../components';
 
 const EpisodesList = () => {
   const router = useRouter();
 
-  const ids = router.query.ids;
-  const episodesIds = (ids && ids.split(",").map((id) => Number(id))) || [];
+  const { ids } = router.query;
+  const episodesIds = (ids && ids.split(',').map((id) => Number(id))) || [];
 
-  const { data, isLoading, error } = useQuery(
-    ["episodes", ...episodesIds],
-    () => getEpisodes(episodesIds)
+  const { data, isLoading, error } = useQuery(['episodes', ...episodesIds], () =>
+    getEpisodes(episodesIds)
   );
 
   function goBack() {
