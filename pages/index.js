@@ -7,27 +7,48 @@ import { getCharacters } from '../queries';
 import { Character, PaginationButton, Loader } from '../components';
 import Arrow from '../components/icons/ChevronLeft';
 
+function getPageButtons(page, pageButtons, action) {
+  const inside = pageButtons.includes(page);
+
+  if (!inside && action === 'subtract') {
+    const newPageButtons = pageButtons.map((p) => --p);
+    return newPageButtons;
+  }
+
+  if (!inside && action === 'add') {
+    const newPageButtons = pageButtons.map((p) => ++p);
+    return newPageButtons;
+  }
+
+  return pageButtons;
+}
+
 export default function Home() {
   const [page, setPage] = React.useState(1);
+  const [pageButtons, setPageButtons] = React.useState([1, 2, 3, 4, 5]);
 
   const { data, isLoading, error } = useQuery(['characters', page], () => getCharacters(page));
+
   const characters = data?.characters?.results;
   const info = data?.characters?.info;
-
-  const pages = Array.from(Array(info?.pages ?? 0), (_, i) => ++i);
-  const pagesToDisplay = pages.slice(page - 1, page + 4);
+  const totalPages = info?.pages;
 
   function previousPage() {
-    if (page - 1 >= 0) {
-      setPage(page - 1);
+    const newPage = page - 1;
+
+    if (newPage >= 0) {
+      setPage(newPage);
+      setPageButtons(getPageButtons(newPage, pageButtons, 'subtract'));
     }
   }
 
   function nextPage() {
-    const lastPage = info?.pages;
+    const lastPage = totalPages;
+    const newPage = page + 1;
 
-    if (page + 1 <= lastPage) {
-      setPage(page + 1);
+    if (newPage <= lastPage) {
+      setPage(newPage);
+      setPageButtons(getPageButtons(newPage, pageButtons, 'add'));
     }
   }
 
@@ -57,15 +78,15 @@ export default function Home() {
 
       {data && (
         <footer className="flex justify-center col-start-1 col-end-9 gap-2 m-6">
-          <PaginationButton onClick={previousPage}>
+          <PaginationButton onClick={previousPage} disabled={page === 1}>
             <Arrow />
           </PaginationButton>
-          {pagesToDisplay.map((item) => (
+          {pageButtons.map((item) => (
             <PaginationButton key={item} id={item} selected={item === page} onClick={goToPage}>
               {item}
             </PaginationButton>
           ))}
-          <PaginationButton onClick={nextPage}>
+          <PaginationButton onClick={nextPage} disabled={page === totalPages}>
             <Arrow direction="right" />
           </PaginationButton>
         </footer>
