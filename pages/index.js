@@ -1,11 +1,13 @@
 import React from 'react';
 import Head from 'next/head';
+import Image from 'next/image';
 import { dehydrate, QueryClient, useQuery } from 'react-query';
 
 import { getCharacters } from '../queries';
 
 import { Character, PaginationButton, Loader } from '../components';
 import Arrow from '../components/icons/ChevronLeft';
+import rickandmortylogo from '../public/rickandmortylogo.png';
 
 function getPageButtons(page, pageButtons, action) {
   const inside = pageButtons.includes(page);
@@ -69,6 +71,10 @@ export default function Home() {
         <meta name="description" content="Data fetching example" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <header className="col-start-1 col-end-9 flex justify-center p-2">
+        <Image src={rickandmortylogo} layout="intrinsic" />
+      </header>
 
       <main className="grid grid-cols-3 gap-4 col-start-2 col-end-8 min-w-max">
         {characters?.map((character) => (
