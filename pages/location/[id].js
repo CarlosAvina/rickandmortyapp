@@ -1,8 +1,8 @@
 import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
-import { Card, BackButton } from '../../components';
+import { Card, BackButton } from 'components';
 
-import { getLocation, getLocationsIds } from '../../queries';
+import { getLocation, getLocationsIds } from 'queries';
 
 const Location = (props) => {
   const router = useRouter();

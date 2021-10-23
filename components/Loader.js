@@ -1,5 +1,5 @@
 import Image from "next/image";
-import rickmortyLoader from "../public/rickandmortyportal.png";
+import rickmortyLoader from "public/rickandmortyportal.png";
 
 const Loader = () => {
   return (

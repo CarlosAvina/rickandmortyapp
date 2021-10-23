@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
-import getEpisodes from '../../queries/getEpisodes';
 
-import { Card, BackButton, Loader } from '../../components';
+import { getEpisodes } from 'queries';
+import { Card, BackButton, Loader } from 'components';
 
 const EpisodesList = () => {
   const router = useRouter();

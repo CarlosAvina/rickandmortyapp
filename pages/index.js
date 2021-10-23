@@ -3,11 +3,11 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { dehydrate, QueryClient, useQuery } from 'react-query';
 
-import { getCharacters } from '../queries';
+import { getCharacters } from 'queries';
 
-import { Character, PaginationButton, Loader } from '../components';
-import Arrow from '../components/icons/ChevronLeft';
-import rickandmortylogo from '../public/rickandmortylogo.png';
+import { Character, PaginationButton, Loader } from 'components';
+import Arrow from 'components/icons/ChevronLeft';
+import rickandmortylogo from 'public/rickandmortylogo.png';
 
 function getPageButtons(page, pageButtons, action) {
   const inside = pageButtons.includes(page);

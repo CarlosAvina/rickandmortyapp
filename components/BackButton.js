@@ -1,4 +1,4 @@
-import ChevronLeft from "./icons/ChevronLeft";
+import ChevronLeft from "components/icons/ChevronLeft";
 
 const BackButton = ({ children = "Back", onClick }) => {
   return (
