@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 
 import { getCharacters } from 'queries';
@@ -8,6 +9,11 @@ import { getCharacters } from 'queries';
 import { Character, PaginationButton, Loader } from 'components';
 import Arrow from 'components/icons/ChevronLeft';
 import rickandmortylogo from 'public/rickandmortylogo.png';
+
+// TODO: Find a more optimal way
+function getInitialPageButtons(page = 1) {
+  return [page, page + 1, page + 2, page + 3, page + 4];
+}
 
 function getPageButtons(page, pageButtons, action) {
   const inside = pageButtons.includes(page);
@@ -25,9 +31,10 @@ function getPageButtons(page, pageButtons, action) {
   return pageButtons;
 }
 
-export default function Home() {
-  const [page, setPage] = React.useState(1);
-  const [pageButtons, setPageButtons] = React.useState([1, 2, 3, 4, 5]);
+export default function Home({ page = 1 }) {
+  const router = useRouter();
+
+  const [pageButtons, setPageButtons] = React.useState(getInitialPageButtons(page));
 
   const { data, isLoading, error } = useQuery(['characters', page], () => getCharacters(page));
 
@@ -39,7 +46,7 @@ export default function Home() {
     const newPage = page - 1;
 
     if (newPage >= 0) {
-      setPage(newPage);
+      router.push(`/characters/page/${newPage}`);
       setPageButtons(getPageButtons(newPage, pageButtons, 'subtract'));
     }
   }
@@ -49,7 +56,7 @@ export default function Home() {
     const newPage = page + 1;
 
     if (newPage <= lastPage) {
-      setPage(newPage);
+      router.push(`/characters/page/${newPage}`);
       setPageButtons(getPageButtons(newPage, pageButtons, 'add'));
     }
   }
@@ -57,18 +64,20 @@ export default function Home() {
   function goToPage(event) {
     const id = Number(event.currentTarget.id);
 
-    if (id) setPage(id);
+    if (id) router.push(`/characters/page/${id}`);
   }
 
   if (isLoading) return <Loader />;
 
-  if (error) return <p>{error}</p>;
+  if (error) return <p>{error.message}</p>;
+
+  if (!page) return <p>Provide a valid page</p>;
 
   return (
     <section className="grid grid-cols-8 my-16">
       <Head>
-        <title>Data fetching</title>
-        <meta name="description" content="Data fetching example" />
+        <title>Characters</title>
+        <meta name="description" content="Rick and morty character" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -99,4 +108,13 @@ export default function Home() {
       )}
     </section>
   );
+}
+
+export async function getServerSideProps(context) {
+  const page = Number(context.query.page);
+  return {
+    props: {
+      page,
+    },
+  };
 }

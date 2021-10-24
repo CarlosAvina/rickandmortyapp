@@ -1,3 +1,3 @@
 export default function Home() {
-  return <p>Redirecting to /characters/1</p>;
+  return <p>Redirecting to /characters/page/1</p>;
 }

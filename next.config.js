@@ -6,8 +6,8 @@ module.exports = {
     return [
       {
         source: '/',
-        destination: '/characters/1',
-        permanent: true,
+        destination: '/characters/page/1',
+        permanent: false,
       },
     ];
   },
