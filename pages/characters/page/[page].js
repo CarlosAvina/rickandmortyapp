@@ -42,11 +42,15 @@ export default function Home({ page = 1 }) {
   const info = data?.characters?.info;
   const totalPages = info?.pages;
 
+  function navigateToPage(newPage) {
+    router.push(`/characters/page/${newPage}`, null, { scroll: false });
+  }
+
   function previousPage() {
     const newPage = page - 1;
 
     if (newPage >= 0) {
-      router.push(`/characters/page/${newPage}`);
+      navigateToPage(newPage);
       setPageButtons(getPageButtons(newPage, pageButtons, 'subtract'));
     }
   }
@@ -56,15 +60,14 @@ export default function Home({ page = 1 }) {
     const newPage = page + 1;
 
     if (newPage <= lastPage) {
-      router.push(`/characters/page/${newPage}`);
+      navigateToPage(newPage);
       setPageButtons(getPageButtons(newPage, pageButtons, 'add'));
     }
   }
 
   function goToPage(event) {
     const id = Number(event.currentTarget.id);
-
-    if (id) router.push(`/characters/page/${id}`);
+    if (id) navigateToPage(id);
   }
 
   if (isLoading) return <Loader />;
