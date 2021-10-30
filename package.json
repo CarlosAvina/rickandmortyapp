@@ -23,6 +23,7 @@
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.2.1",
     "@types/react": "^17.0.33",
+    "@types/react-query": "^1.2.9",
     "autoprefixer": "^10.3.5",
     "babel-jest": "^27.3.1",
     "babel-plugin-module-resolver": "^4.1.0",
