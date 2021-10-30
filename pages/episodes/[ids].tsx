@@ -4,10 +4,14 @@ import { useQuery } from 'react-query';
 import { getEpisodes } from 'queries';
 import { Card, BackButton, Loader } from 'components';
 
+type EpisodesPageQuery = {
+  ids: string;
+};
+
 const EpisodesList = () => {
   const router = useRouter();
 
-  const { ids } = router.query;
+  const { ids } = router.query as EpisodesPageQuery;
   const episodesIds = (ids && ids.split(',').map((id) => Number(id))) || [];
 
   const { data, isLoading, error } = useQuery(['episodes', ...episodesIds], () =>

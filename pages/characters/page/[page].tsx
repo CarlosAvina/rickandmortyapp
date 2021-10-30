@@ -36,7 +36,8 @@ export default function Home({ page = 1 }) {
 
   const [pageButtons, setPageButtons] = React.useState(getInitialPageButtons(page));
 
-  const { data, isLoading, error } = useQuery(['characters', page], () => getCharacters(page));
+  // TODO: Remove any type
+  const { data, isLoading, error } = useQuery<any, Error>(['characters', page], () => getCharacters(page));
 
   const characters = data?.characters?.results;
   const info = data?.characters?.info;

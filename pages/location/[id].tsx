@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery, UseQueryResult } from 'react-query';
 import { useRouter } from 'next/router';
 
 import { Card, BackButton, Loader } from 'components';
@@ -7,7 +7,8 @@ import { getLocation } from 'queries';
 const Location = () => {
   const router = useRouter();
 
-  const { data, isLoading, error } = useQuery(['location', router.query.id], () =>
+  // TODO: Remove any type
+  const { data, isLoading, error }: UseQueryResult<any, Error> = useQuery(['location', router.query.id], () =>
     getLocation(router.query.id)
   );
 
