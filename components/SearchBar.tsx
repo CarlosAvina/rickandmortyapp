@@ -1,4 +1,4 @@
-import { Button } from 'components';
+import { Button } from 'components/index';
 
 const SearchBar = (props) => {
   const { onSubmit, className, ...extraProps } = props;
