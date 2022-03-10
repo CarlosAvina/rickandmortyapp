@@ -4,12 +4,13 @@ module.exports = {
   theme: {
     extend: {
       gridTemplateColumns: {
-        cards: 'repeat(auto-fit, minmax(300px, 1fr))',
+        'desktop-cards': 'repeat(auto-fit, minmax(200px, 1fr))',
+        'mobile-cards': 'repeat(auto-fit, minmax(300px, 1fr))',
       },
     },
   },
   variants: {
-    extend: { transform: ["hover", "focus"] },
+    extend: { transform: ['hover', 'focus'] },
   },
   plugins: [],
 };

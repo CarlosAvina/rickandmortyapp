@@ -30,7 +30,7 @@ const Character = ({ character }) => {
       <Image src={image} width={100} height={100} alt="rick_and_morty_character_photo" />
       <p className="font-bold text-2xl max-w-min md:max-w-max">{name}</p>
       <b>{status}</b>
-      <p>{origin.name}</p>
+      <p className="max-w-min md:max-w-max">{origin.name}</p>
       <section className="flex flex-col md:flex-row gap-3 mt-5">
         <Button onClick={goOrigin} disabled={!origin.id}>
           Origin
