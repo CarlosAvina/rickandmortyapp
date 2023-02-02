@@ -77,40 +77,42 @@ export default function Home({ page = 1 }) {
   if (!page) return <p>Provide a valid page</p>;
 
   return (
-    <section className="grid grid-cols-8 my-16">
-      <Head>
-        <title>Characters</title>
-        <meta name="description" content="Rick and morty character" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <html lang="en">
+      <section className="grid grid-cols-8 my-16">
+        <Head>
+          <title>Characters</title>
+          <meta name="description" content="Rick and morty character" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
 
-      <header className="col-start-1 col-end-9 flex justify-center p-2">
-        <Image src={rickandmortylogo} layout="intrinsic" />
-      </header>
+        <header className="col-start-1 col-end-9 flex justify-center p-2">
+          <Image src={rickandmortylogo} layout="intrinsic" alt="rick_and_morty_logo" />
+        </header>
 
-      <main className="grid grid-cols-desktop-cards md:grid-cols-mobile-cards gap-4 col-start-2 col-end-8 min-w-max">
-        {characters?.map((character) => (
-          <Character key={character.id} character={character} />
-        ))}
-      </main>
-
-      {data && (
-        <footer className="flex justify-center col-start-1 col-end-9 gap-2 m-6">
-          <PaginationButton onClick={previousPage} disabled={page === 1}>
-            <Arrow />
-          </PaginationButton>
-          {pageButtons.map((item) => (
-            <PaginationButton key={item} id={item} selected={item === page} onClick={goToPage}>
-              {item}
-            </PaginationButton>
+        <main className="grid grid-cols-desktop-cards md:grid-cols-mobile-cards gap-4 col-start-2 col-end-8 min-w-max">
+          {characters?.map((character) => (
+            <Character key={character.id} character={character} />
           ))}
-          <PaginationButton onClick={nextPage} disabled={page === totalPages}>
-            <Arrow direction="right" />
-          </PaginationButton>
-        </footer>
-      )}
-    </section>
+        </main>
+
+        {data && (
+          <footer className="flex justify-center col-start-1 col-end-9 gap-2 m-6">
+            <PaginationButton onClick={previousPage} disabled={page === 1}>
+              <Arrow />
+            </PaginationButton>
+            {pageButtons.map((item) => (
+              <PaginationButton key={item} id={item} selected={item === page} onClick={goToPage}>
+                {item}
+              </PaginationButton>
+            ))}
+            <PaginationButton onClick={nextPage} disabled={page === totalPages}>
+              <Arrow direction="right" />
+            </PaginationButton>
+          </footer>
+        )}
+      </section>
+    </html>
   );
 }
 

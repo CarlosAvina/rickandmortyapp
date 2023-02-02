@@ -2,6 +2,8 @@ const PaginationButton = ({ children, onClick, selected, disabled, ...extraProps
   return (
     <button
       {...extraProps}
+      type="button"
+      aria-label="pagination-button"
       onClick={onClick}
       disabled={disabled}
       className={`bg-gray-300 rounded-md text-lg text-black font-semibold px-3 py-1 ${
