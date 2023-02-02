@@ -81,6 +81,7 @@ export default function Home({ page = 1 }) {
       <Head>
         <title>Characters</title>
         <meta name="description" content="Rick and morty character" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
