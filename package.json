@@ -10,6 +10,7 @@
     "test": "jest --watch"
   },
   "dependencies": {
+    "@vercel/analytics": "^0.1.11",
     "graphql": "^15.6.1",
     "graphql-request": "^3.5.0",
     "next": "11.1.2",
