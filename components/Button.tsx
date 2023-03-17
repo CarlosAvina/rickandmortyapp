@@ -1,4 +1,11 @@
-const Button = ({ children, onClick, disabled, className, ...extraProps }) => {
+type Props = {
+  children: React.ReactNode;
+  onClick: () => void;
+  disabled?: boolean;
+  className?: string;
+}
+
+const Button = ({ children, onClick, disabled, className, ...extraProps }: Props) => {
   return (
     <button
       className={`w-1/2 flex items-center justify-center rounded-md text-white px-2 py-1 ${

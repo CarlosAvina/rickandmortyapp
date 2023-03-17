@@ -1,10 +1,11 @@
-import Image from "next/image";
-import rickmortyLoader from "public/rickandmortyportal.png";
+import Image from 'next/image';
+import rickmortyLoader from 'public/rickandmortyportal.png';
 
 const Loader = () => {
   return (
     <figure className="h-screen grid justify-center items-center">
       <Image
+        alt="loaders_sping_image"
         className="animate-spin"
         src={rickmortyLoader}
         width={300}

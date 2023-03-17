@@ -2,12 +2,12 @@ import React from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useQuery } from 'react-query';
+import { useQuery, UseQueryResult } from 'react-query';
 
-import { getCharacters } from 'queries';
+import { getCharacters } from '../../../queries';
 
-import { Character, PaginationButton, Loader } from 'components';
-import Arrow from 'components/icons/ChevronLeft';
+import { Character, PaginationButton, Loader } from '../../../components';
+import Arrow from '../../../components/icons/ChevronLeft';
 import rickandmortylogo from 'public/rickandmortylogo.png';
 
 // TODO: Find a more optimal way
@@ -36,7 +36,8 @@ export default function Home({ page = 1 }) {
 
   const [pageButtons, setPageButtons] = React.useState(getInitialPageButtons(page));
 
-  const { data, isLoading, error } = useQuery(['characters', page], () => getCharacters(page));
+  // TODO: fix any
+  const { data, isLoading, error } = useQuery<any, Error>(['characters', page], () => getCharacters(page));
 
   const characters = data?.characters?.results;
   const info = data?.characters?.info;
@@ -102,7 +103,7 @@ export default function Home({ page = 1 }) {
               <Arrow />
             </PaginationButton>
             {pageButtons.map((item) => (
-              <PaginationButton key={item} id={item} selected={item === page} onClick={goToPage}>
+              <PaginationButton key={item} id={String(item)} selected={item === page} onClick={goToPage}>
                 {item}
               </PaginationButton>
             ))}

@@ -1,6 +1,6 @@
-function Icon({ direction }) {
+function Icon({ direction }: { direction?: string }) {
   let rotate;
-  if (direction === "right") rotate = "rotate-180";
+  if (direction === 'right') rotate = 'rotate-180';
 
   return (
     <svg

@@ -1,4 +1,14 @@
-const PaginationButton = ({ children, onClick, selected, disabled, ...extraProps }) => {
+import { SyntheticEvent } from "react";
+
+type Props = {
+  id?: string;
+  children: React.ReactNode;
+  onClick: (e: SyntheticEvent<HTMLButtonElement>) => void;
+  selected?: boolean;
+  disabled?: boolean;
+}
+
+const PaginationButton = ({ children, onClick, selected, disabled, ...extraProps }: Props) => {
   return (
     <button
       {...extraProps}

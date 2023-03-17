@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-import { Card, Button } from 'components';
+import { Card, Button } from './';
 
 const Character = ({ character }) => {
   const router = useRouter();
