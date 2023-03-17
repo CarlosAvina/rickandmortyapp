@@ -94,7 +94,7 @@ export default function Home({ page = 1 }) {
           <Image src={rickandmortylogo} layout="intrinsic" alt="rick_and_morty_logo" />
         </header>
 
-        <main className="grid grid-cols-desktop-cards md:grid-cols-mobile-cards gap-4 col-start-2 col-end-8 min-w-max">
+        <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 col-start-2 col-end-8">
           {characters?.map((character) => (
             <Character key={character.id} character={character} />
           ))}

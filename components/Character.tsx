@@ -28,10 +28,10 @@ const Character = ({ character }) => {
   return (
     <Card key={id}>
       <Image src={image} width={100} height={100} alt="rick_and_morty_character_photo" />
-      <p className="font-bold text-2xl max-w-min md:max-w-max">{name}</p>
+      <p className="font-bold text-2xl">{name}</p>
       <b>{status}</b>
-      <p className="max-w-min md:max-w-max">{origin.name}</p>
-      <section className="flex flex-col md:flex-row gap-3 mt-5">
+      <p>{origin.name}</p>
+      <section className="flex justify-between flex-col md:flex-row gap-3 mt-5">
         <Button onClick={goOrigin} disabled={!origin.id}>
           Origin
         </Button>
