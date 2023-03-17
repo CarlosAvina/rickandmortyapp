@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useQuery } from 'react-query';
+import { useQuery, UseQueryResult } from 'react-query';
 
 import { getEpisodes } from '../../queries';
 import { Card, BackButton, Loader } from '../../components';
@@ -10,7 +10,7 @@ const EpisodesList = () => {
   const { ids } = router.query;
   const episodesIds = (ids && typeof(ids) === 'string' && ids.split(',').map((id) => Number(id))) || [];
 
-  const { data, isLoading, error } = useQuery(['episodes', ...episodesIds], () =>
+  const { data, isLoading, error }: UseQueryResult<any, Error> = useQuery(['episodes', ...episodesIds], () =>
     getEpisodes(episodesIds)
   );
 
@@ -20,7 +20,7 @@ const EpisodesList = () => {
 
   if (isLoading) return <Loader />;
 
-  if (error) return <p>{error}</p>;
+  if (error) return <p>{error.message}</p>;
 
   return (
     <main className="p-5 flex flex-col gap-3">

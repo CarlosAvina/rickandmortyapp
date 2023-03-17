@@ -37,7 +37,10 @@ export default function Home({ page = 1 }) {
   const [pageButtons, setPageButtons] = React.useState(getInitialPageButtons(page));
 
   // TODO: fix any
-  const { data, isLoading, error } = useQuery<any, Error>(['characters', page], () => getCharacters(page));
+  const { data, isLoading, error }: UseQueryResult<any, Error> = useQuery(
+    ['characters', page],
+    () => getCharacters(page)
+  );
 
   const characters = data?.characters?.results;
   const info = data?.characters?.info;
@@ -103,7 +106,12 @@ export default function Home({ page = 1 }) {
               <Arrow />
             </PaginationButton>
             {pageButtons.map((item) => (
-              <PaginationButton key={item} id={String(item)} selected={item === page} onClick={goToPage}>
+              <PaginationButton
+                key={item}
+                id={String(item)}
+                selected={item === page}
+                onClick={goToPage}
+              >
                 {item}
               </PaginationButton>
             ))}
