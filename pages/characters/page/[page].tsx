@@ -10,31 +10,26 @@ import { Character, PaginationButton, Loader } from '../../../components';
 import Arrow from '../../../components/icons/ChevronLeft';
 import rickandmortylogo from 'public/rickandmortylogo.png';
 
-// TODO: Find a more optimal way
-function getInitialPageButtons(page = 1) {
-  return [page, page + 1, page + 2, page + 3, page + 4];
-}
+function getInitialPageButtons(page = 1, totalPages: number) {
 
-function getPageButtons(page, pageButtons, action) {
-  const inside = pageButtons.includes(page);
+  if (!totalPages) return [];
 
-  if (!inside && action === 'subtract') {
-    const newPageButtons = pageButtons.map((p) => --p);
-    return newPageButtons;
+  const defaultLimit = 5;
+  const currentRange = Math.ceil(page / defaultLimit);
+  const lastRange = Math.ceil(totalPages / defaultLimit);
+  const limit = currentRange !== lastRange ? defaultLimit : (page % defaultLimit) || defaultLimit;
+
+  const pages = [];
+
+  for (let i = 0; i < limit; i++) {
+    pages.push((i + 1) + (defaultLimit * (currentRange - 1)));
   }
 
-  if (!inside && action === 'add') {
-    const newPageButtons = pageButtons.map((p) => ++p);
-    return newPageButtons;
-  }
-
-  return pageButtons;
+  return pages;
 }
 
 export default function Home({ page = 1, characterName }) {
   const router = useRouter();
-
-  const [pageButtons, setPageButtons] = React.useState(getInitialPageButtons(page));
 
   // TODO: fix any
   const { data, isLoading, error }: UseQueryResult<any, Error> = useQuery(
@@ -42,9 +37,15 @@ export default function Home({ page = 1, characterName }) {
     () => getCharacters(page, characterName)
   );
 
+  const [pageButtons, setPageButtons] = React.useState([]);
+
   const characters = data?.characters?.results;
   const info = data?.characters?.info;
   const totalPages = info?.pages;
+
+  React.useEffect(() => {
+    setPageButtons(getInitialPageButtons(page, totalPages))
+  }, [page, totalPages]);
 
   function navigateToPage(newPage) {
     router.push(`/characters/page/${newPage}?characterName=${characterName}`, null, { scroll: false });
@@ -55,7 +56,6 @@ export default function Home({ page = 1, characterName }) {
 
     if (newPage >= 0) {
       navigateToPage(newPage);
-      setPageButtons(getPageButtons(newPage, pageButtons, 'subtract'));
     }
   }
 
@@ -65,7 +65,6 @@ export default function Home({ page = 1, characterName }) {
 
     if (newPage <= lastPage) {
       navigateToPage(newPage);
-      setPageButtons(getPageButtons(newPage, pageButtons, 'add'));
     }
   }
 
