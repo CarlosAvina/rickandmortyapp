@@ -31,15 +31,15 @@ function getPageButtons(page, pageButtons, action) {
   return pageButtons;
 }
 
-export default function Home({ page = 1 }) {
+export default function Home({ page = 1, characterName }) {
   const router = useRouter();
 
   const [pageButtons, setPageButtons] = React.useState(getInitialPageButtons(page));
 
   // TODO: fix any
   const { data, isLoading, error }: UseQueryResult<any, Error> = useQuery(
-    ['characters', page],
-    () => getCharacters(page)
+    ['characters', page, characterName],
+    () => getCharacters(page, characterName)
   );
 
   const characters = data?.characters?.results;
@@ -47,7 +47,7 @@ export default function Home({ page = 1 }) {
   const totalPages = info?.pages;
 
   function navigateToPage(newPage) {
-    router.push(`/characters/page/${newPage}`, null, { scroll: false });
+    router.push(`/characters/page/${newPage}?characterName=${characterName}`, null, { scroll: false });
   }
 
   function previousPage() {
@@ -74,6 +74,14 @@ export default function Home({ page = 1 }) {
     if (id) navigateToPage(id);
   }
 
+  function searchCharacter(event) {
+    event.preventDefault();
+
+    const data = new FormData(event.currentTarget);
+    const characterName = data.get('character-name');
+    router.push(`/characters/page/1?characterName=${characterName}`);
+  }
+
   if (isLoading) return <Loader />;
 
   if (error) return <p>{error.message}</p>;
@@ -93,6 +101,11 @@ export default function Home({ page = 1 }) {
         <header className="col-start-1 col-end-9 flex justify-center p-2">
           <Image src={rickandmortylogo} layout="intrinsic" alt="rick_and_morty_logo" />
         </header>
+
+        <form className="flex gap-4 justify-end items-center col-start-2 col-end-8 my-4" onSubmit={searchCharacter}>
+          <input className="p-2 border-black border-2 rounded-md" name="character-name" type="text" placeholder="Search character" />
+          <button className="p-2 bg-green-300 font-bold rounded-md border-2 border-black" type="submit">Search</button>
+        </form>
 
         <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 col-start-2 col-end-8">
           {characters?.map((character) => (
@@ -127,9 +140,12 @@ export default function Home({ page = 1 }) {
 
 export async function getServerSideProps(context) {
   const page = Number(context.query.page);
+  const characterName = context.query?.characterName || "";
+
   return {
     props: {
       page,
+      characterName,
     },
   };
 }
