@@ -82,7 +82,7 @@ export default function Home({ page = 1 }) {
 
   return (
     <html lang="en">
-      <section className="grid grid-cols-8 my-16">
+      <section className="grid grid-cols-8">
         <Head>
           <title>Characters</title>
           <meta name="description" content="Rick and morty character" />
@@ -101,7 +101,7 @@ export default function Home({ page = 1 }) {
         </main>
 
         {data && (
-          <footer className="flex justify-center col-start-1 col-end-9 gap-2 m-6">
+          <footer className="flex justify-center col-start-1 col-end-9 gap-2 m-6 sticky bg-white bottom-0 py-4">
             <PaginationButton onClick={previousPage} disabled={page === 1}>
               <Arrow />
             </PaginationButton>
