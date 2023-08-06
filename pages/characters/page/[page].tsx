@@ -10,6 +10,13 @@ import { Character, PaginationButton, Loader } from '../../../components';
 import Arrow from '../../../components/icons/ChevronLeft';
 import rickandmortylogo from 'public/rickandmortylogo.png';
 
+function getPagesLimit(currentRange: number, lastRange: number, defaultLimit: number, page: number, totalPages: number) {
+  if (currentRange !== lastRange) return defaultLimit;
+  if (lastRange === 1) return totalPages;
+
+  return (page % defaultLimit) || defaultLimit;
+}
+
 function getInitialPageButtons(page = 1, totalPages: number) {
 
   if (!totalPages) return [];
@@ -17,7 +24,7 @@ function getInitialPageButtons(page = 1, totalPages: number) {
   const defaultLimit = 5;
   const currentRange = Math.ceil(page / defaultLimit);
   const lastRange = Math.ceil(totalPages / defaultLimit);
-  const limit = currentRange !== lastRange ? defaultLimit : (page % defaultLimit) || defaultLimit;
+  const limit = getPagesLimit(currentRange, lastRange, defaultLimit, page, totalPages);
 
   const pages = [];
 
@@ -48,7 +55,7 @@ export default function Home({ page = 1, characterName }) {
   }, [page, totalPages]);
 
   function navigateToPage(newPage) {
-    router.push(`/characters/page/${newPage}?characterName=${characterName}`, null, { scroll: false });
+    router.push(`/characters/page/${newPage}${characterName ? `?characterName=${characterName}` : ''}`, null, { scroll: false });
   }
 
   function previousPage() {
