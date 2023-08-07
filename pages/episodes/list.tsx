@@ -1,11 +1,11 @@
 import React from 'react';
 import { getEpisodes } from "../../queries"
-import { useQuery } from "react-query"
+import { useQuery, UseQueryResult } from "react-query"
 import { Loader, Card } from "../../components"
 
 export default function List() {
   const [season, setSeason] = React.useState("S01");
-  const { data, isLoading, error } = useQuery(["episodes", season], () => getEpisodes(1, season));
+  const { data, isLoading, error }: UseQueryResult<any, Error> = useQuery(["episodes", season], () => getEpisodes(1, season));
 
   function selectSeason(event) {
     const value = event.currentTarget.value;
