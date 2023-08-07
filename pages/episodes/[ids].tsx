@@ -1,17 +1,17 @@
 import { useRouter } from 'next/router';
 import { useQuery, UseQueryResult } from 'react-query';
 
-import { getEpisodes } from '../../queries';
+import { getEpisodesByIds } from '../../queries';
 import { Card, BackButton, Loader } from '../../components';
 
 const EpisodesList = () => {
   const router = useRouter();
 
   const { ids } = router.query;
-  const episodesIds = (ids && typeof(ids) === 'string' && ids.split(',').map((id) => Number(id))) || [];
+  const episodesIds = (ids && typeof (ids) === 'string' && ids.split(',').map((id) => Number(id))) || [];
 
   const { data, isLoading, error }: UseQueryResult<any, Error> = useQuery(['episodes', ...episodesIds], () =>
-    getEpisodes(episodesIds)
+    getEpisodesByIds(episodesIds)
   );
 
   function goBack() {

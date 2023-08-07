@@ -1,6 +1,6 @@
 import getCharacters from './getCharacters';
-import getEpisodes from './getEpisodes';
+import { getEpisodes, getEpisodesByIds } from './getEpisodes';
 import getLocation from './getLocation';
 import getLocationsIds from './getLocationsIds';
 
-export { getCharacters, getEpisodes, getLocation, getLocationsIds };
+export { getCharacters, getEpisodes, getEpisodesByIds, getLocation, getLocationsIds };
