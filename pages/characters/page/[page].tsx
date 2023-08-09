@@ -116,9 +116,10 @@ export default function Home({ page = 1, characterName }) {
           {characters?.map((character) => (
             <Character key={character.id} character={character} />
           ))}
+          {characters.length === 0 ? <p className="font-bold text-center text-2xl">No results found</p> : null}
         </main>
 
-        {data && (
+        {!!characters.length && (
           <footer className="flex justify-center col-start-1 col-end-9 gap-2 m-6 sticky bg-white bottom-0 py-4">
             <PaginationButton onClick={previousPage} disabled={page === 1}>
               <Arrow />
