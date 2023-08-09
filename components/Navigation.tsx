@@ -2,7 +2,7 @@ import rickandmortylogo from "public/rickandmortylogo.png";
 import Link from "next/link";
 import Image from "next/image";
 
-const Navigation = ({ page }: { page: number }) => {
+const Navigation = ({ page }: { page?: number }) => {
   return (
      <header className="flex col-start-1 col-end-9 items-center justify-center gap-3 md:justify-between py-5 px-10 md:px-20">
       <Image className='h-10 w-10 md:h-24 md:w-24' src={rickandmortylogo} alt="rick_and_morty_logo" />
