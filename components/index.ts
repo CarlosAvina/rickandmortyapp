@@ -4,5 +4,6 @@ import Character from "./Character";
 import BackButton from "./BackButton";
 import PaginationButton from "./PaginationButton";
 import Loader from "./Loader";
+import Navigation from "./Navigation";
 
-export { Button, Card, Character, BackButton, PaginationButton, Loader };
+export { Button, Card, Character, BackButton, PaginationButton, Loader, Navigation };

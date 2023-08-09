@@ -1,7 +1,7 @@
 import React from 'react';
 import { getEpisodes } from "../../queries"
 import { useQuery, UseQueryResult } from "react-query"
-import { Loader, Card } from "../../components"
+import { Loader, Card, Navigation } from "../../components"
 
 export default function List() {
   const [season, setSeason] = React.useState("S01");
@@ -16,6 +16,7 @@ export default function List() {
   if (error) return <p>{error.message}</p>
 
   return <div className='flex gap-3 flex-col p-5'>
+    <Navigation />
     <select className="w-52 self-end p-3 font-bold border-2 border-black rounded-md" onChange={selectSeason} value={season}>
       <option value="S01">Season 1</option>
       <option value="S02">Season 2</option>

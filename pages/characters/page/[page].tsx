@@ -6,7 +6,7 @@ import { useQuery, UseQueryResult } from 'react-query';
 
 import { getCharacters } from '../../../queries';
 
-import { Character, PaginationButton, Loader } from '../../../components';
+import { Character, PaginationButton, Navigation, Loader } from '../../../components';
 import Arrow from '../../../components/icons/ChevronLeft';
 import rickandmortylogo from 'public/rickandmortylogo.png';
 import Link from 'next/link';
@@ -105,15 +105,7 @@ export default function Home({ page = 1, characterName }) {
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        <header className="flex col-start-1 col-end-9 items-center justify-center gap-3 md:justify-between py-5 px-10 md:px-20">
-          <Image className='h-10 w-10 md:h-24 md:w-24' src={rickandmortylogo} alt="rick_and_morty_logo" />
-          <nav className="gap-10 font-bold text-2xl hidden md:flex">
-            <Link className='hover:underline' href={`/characters/page/${page}`}>Characters</Link>
-            <Link className='hover:underline' href="/episodes/list">Episodes</Link>
-            <Link className='hover:underline' href="/locations">Locations</Link>
-          </nav>
-          <h1 className="font-bold text-2xl md:hidden">Rick and morty app</h1>
-        </header>
+        <Navigation page={page} />
 
         <form className="flex gap-4 justify-end items-center col-start-2 col-end-8 my-4" onSubmit={searchCharacter}>
           <input className="p-2 border-black border-2 rounded-md" name="character-name" type="text" placeholder="Search character" />
