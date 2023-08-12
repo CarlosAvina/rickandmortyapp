@@ -10,13 +10,13 @@ const Character = ({ character }) => {
 
   function goOrigin() {
     if (origin.id) {
-      router.push(`/location/${origin.id}`);
+      router.push(`/locations/${origin.id}`);
     }
   }
 
   function goLocation() {
     if (location.id) {
-      router.push(`/location/${location.id}`);
+      router.push(`/locations/${location.id}`);
     }
   }
 
